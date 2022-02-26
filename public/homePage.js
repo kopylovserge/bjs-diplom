@@ -1,7 +1,9 @@
 
-const logoutBtn = new LogoutButton();
-console.log(logoutBtn);
+let doLogout = (response) => {
+    if (response.success === true) {
+        location.reload();
+    }
+}
 
-logoutBtn.action = () => ApiConnector.logout(() => {
-    location.reload();
-});
+const logoutBtn = new LogoutButton();
+logoutBtn.action = () => ApiConnector.logout(doLogout);
