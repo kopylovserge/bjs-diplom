@@ -14,7 +14,7 @@ logoutBtn.action = () => ApiConnector.logout(doLogout);
 
 let doShowCurrentUser = (response) => {
     if (response) {
-        console.log(response);
+        // console.log(response);
         ProfileWidget.showProfile(response.data);
     }
 }
@@ -22,3 +22,16 @@ let doShowCurrentUser = (response) => {
 const User = () => ApiConnector.current(doShowCurrentUser);
 User();
 
+// Получение текущих курсов валюты
+
+let doRatesBoard = (response) => {
+    if (response) {
+        valuta.clearTable();
+        valuta.fillTable(response.data)
+    }
+}
+
+const valuta = new RatesBoard;
+const getRatesBoard = () => ApiConnector.getStocks(doRatesBoard);
+getRatesBoard();
+setInterval(getRatesBoard, 60000);
