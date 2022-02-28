@@ -15,10 +15,10 @@ logoutBtn.action = () => ApiConnector.logout(doLogout);
 let doShowCurrentUser = (response) => {
     if (response) {
         console.log(response);
-        ProfileWidget.showProfile(response);
+        ProfileWidget.showProfile(response.data);
     }
 }
 
-let User = () => ApiConnector.current(doShowCurrentUser);
-// console.log(User());
+const User = () => ApiConnector.current(doShowCurrentUser);
+User();
 
