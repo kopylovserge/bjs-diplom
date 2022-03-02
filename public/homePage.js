@@ -14,7 +14,6 @@ logoutBtn.action = () => ApiConnector.logout(doLogout);
 
 let doShowCurrentUser = (response) => {
     if (response) {
-        // console.log(response);
         ProfileWidget.showProfile(response.data);
     }
 }
@@ -42,7 +41,7 @@ const moneyOperation = new MoneyManager;
 
 // пополнение баланса
 
-moneyOperation.addMoneyCallback = function (data) {
+moneyOperation.addMoneyCallback = function(data) {
 
     let callbackMoney = (response) => {
         if (response.data) {
@@ -53,13 +52,98 @@ moneyOperation.addMoneyCallback = function (data) {
         }
     }
 
-    if (data !== undefined) {
-        const money = () => ApiConnector.addMoney(data, callbackMoney);
-        money();
-    }
+    const money = () => ApiConnector.addMoney(data, callbackMoney);
+    money();
 
 }
 
-moneyOperation.addMoneyCallback();
-
 // конвертирование валюты
+
+moneyOperation.conversionMoneyCallback = function(data) {
+
+    let callbackMoney = (response) => {
+        if (response.data) {
+            ProfileWidget.showProfile(response.data);
+            moneyOperation.setMessage(true, "Операция успешна");
+        } else {
+            moneyOperation.setMessage(true, response.error);
+        }
+    }
+
+    const money = () => ApiConnector.convertMoney(data, callbackMoney);
+    money();
+
+}
+
+// перевод валюты
+
+moneyOperation.sendMoneyCallback = function(data) {
+
+    let callbackMoney = (response) => {
+        if (response.data) {
+            ProfileWidget.showProfile(response.data);
+            moneyOperation.setMessage(true, "Операция успешна");
+        } else {
+            moneyOperation.setMessage(true, response.error);
+        }
+    }
+
+    const money = () => ApiConnector.transferMoney(data, callbackMoney);
+    money();
+
+}
+
+// Работа с избранным
+
+const favotites = new FavoritesWidget;
+
+let doFavor = (response) => {
+    if (response) {
+        favotites.clearTable();
+        favotites.fillTable(response.data);
+        moneyOperation.updateUsersList(response.data);
+    }
+}
+
+const getFavor = () => ApiConnector.getFavorites(doFavor);
+getFavor();
+
+// добавления пользователя в список избранных
+
+favotites.addUserCallback = function(data) {
+
+    let callbackFavor = (response) => {
+        if (response.data) {
+            favotites.clearTable();
+            favotites.fillTable(response.data);
+            moneyOperation.updateUsersList(response.data);
+            moneyOperation.setMessage(true, "Операция успешна");
+        } else {
+            moneyOperation.setMessage(true, response.error);
+        }
+    }
+
+    const userFav = () => ApiConnector.addUserToFavorites(data, callbackFavor);
+    userFav();
+
+}
+
+// удаление пользователя из избранного
+
+favotites.removeUserCallback = function(data) {
+
+    let callbackFavor = (response) => {
+        if (response.data) {
+            favotites.clearTable();
+            favotites.fillTable(response.data);
+            moneyOperation.updateUsersList(response.data);
+            moneyOperation.setMessage(true, "Операция успешна");
+        } else {
+            moneyOperation.setMessage(true, response.error);
+        }
+    }
+
+    const userFav = () => ApiConnector.removeUserFromFavorites(data, callbackFavor);
+    userFav();
+
+}
