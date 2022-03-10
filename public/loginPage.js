@@ -11,7 +11,7 @@ let doRegister = (response) => {
     if (response.success === true) {
         location.reload();
     } else {
-        userForm.registerErrorMessageBox(response.error)
+        userForm.setRegisterErrorMessage(response.error)
     }
 }
 

@@ -48,7 +48,7 @@ moneyOperation.addMoneyCallback = function(data) {
             ProfileWidget.showProfile(response.data);
             moneyOperation.setMessage(true, "Операция успешна");
         } else {
-            moneyOperation.setMessage(true, response.error);
+            moneyOperation.setMessage(false, response.error);
         }
     }
 
@@ -66,7 +66,7 @@ moneyOperation.conversionMoneyCallback = function(data) {
             ProfileWidget.showProfile(response.data);
             moneyOperation.setMessage(true, "Операция успешна");
         } else {
-            moneyOperation.setMessage(true, response.error);
+            moneyOperation.setMessage(false, response.error);
         }
     }
 
@@ -84,7 +84,7 @@ moneyOperation.sendMoneyCallback = function(data) {
             ProfileWidget.showProfile(response.data);
             moneyOperation.setMessage(true, "Операция успешна");
         } else {
-            moneyOperation.setMessage(true, response.error);
+            moneyOperation.setMessage(false, response.error);
         }
     }
 
@@ -117,9 +117,9 @@ favotites.addUserCallback = function(data) {
             favotites.clearTable();
             favotites.fillTable(response.data);
             moneyOperation.updateUsersList(response.data);
-            moneyOperation.setMessage(true, "Операция успешна");
+            favotites.setMessage(true, "Операция успешна");
         } else {
-            moneyOperation.setMessage(true, response.error);
+            favotites.setMessage(false, response.error);
         }
     }
 
@@ -137,9 +137,9 @@ favotites.removeUserCallback = function(data) {
             favotites.clearTable();
             favotites.fillTable(response.data);
             moneyOperation.updateUsersList(response.data);
-            moneyOperation.setMessage(true, "Операция успешна");
+            favotites.setMessage(true, "Операция успешна");
         } else {
-            moneyOperation.setMessage(true, response.error);
+            favotites.setMessage(false, response.error);
         }
     }
 
